@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Glitchy Numbers</title>
+<style>
+  body {
+    background: black;
+    color: #0f0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 24px;
+    overflow: hidden;
+    margin: 0;
+    padding: 20px;
+  }
+  .glitch {
+    display: inline-block;
+    animation: flicker 0.15s infinite alternate;
+  }
+  @keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.2; text-shadow: 0 0 5px #0f0, 0 0 10px #0f0; }
+    100% { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<div id="glitchArea"></div>
+
+<script>
+  const chars = "01!@#$%^&*()[]{}<>?/\\|abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  
+  function randomChar() {
+    return chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  
+  function generateGlitchLine(length) {
+    let line = "";
+    for(let i=0; i<length; i++) {
+      line += `<span class="glitch">${randomChar()}</span>`;
+    }
+    return line;
+  }
+  
+  const glitchArea = document.getElementById('glitchArea');
+  
+  function updateGlitch() {
+    glitchArea.innerHTML = "";
+    for(let i=0; i<20; i++) {
+      glitchArea.innerHTML += generateGlitchLine(50) + "<br>";
+    }
+  }
+  
+  updateGlitch();
+  setInterval(updateGlitch, 300);
+</script>
+
+</body>
+</html>
